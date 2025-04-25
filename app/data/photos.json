@@ -1,0 +1,48 @@
+[
+  {
+    "id": 1745564700085,
+    "album": "album1",
+    "originalName": "input.jpg",
+    "url": "uploads\\\\album1\\\\upload_1745564700080.jpg",
+    "lastChange": "zmienione 1 raz",
+    "history": [
+      {
+        "status": "original",
+        "lastModifiedDate": 1745564700085
+      },
+      {
+        "status": "zmienione 1 raz",
+        "lastModifiedDate": 1745564911869
+      }
+    ],
+    "tags": []
+  },
+  {
+    "id": 1745564941898,
+    "album": "album1",
+    "originalName": "input.jpg",
+    "url": "uploads\\\\album1\\\\upload_1745564941897.jpg",
+    "lastChange": "original",
+    "history": [
+      {
+        "status": "original",
+        "lastModifiedDate": 1745564941898
+      }
+    ],
+    "tags": []
+  },
+  {
+    "id": 1745564943337,
+    "album": "album1",
+    "originalName": "input.jpg",
+    "url": "uploads\\\\album1\\\\upload_1745564943336.jpg",
+    "lastChange": "original",
+    "history": [
+      {
+        "status": "original",
+        "lastModifiedDate": 1745564943337
+      }
+    ],
+    "tags": []
+  }
+]

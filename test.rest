@@ -1,0 +1,87 @@
+### GET Request
+GET http://localhost:3000/api/photos HTTP/1.1
+Content-Type: application/json
+
+### GET Request with ID
+GET http://localhost:3000/api/photos/1745564700085 HTTP/1.1
+Content-Type: application/json
+
+### POST Request
+POST http://localhost:3000/api/photos/ HTTP/1.1
+Content-Type: application/json
+
+
+
+### PUT Request (full update)
+PUT http://localhost:3000/api/photos/1745564700085 HTTP/1.1
+Content-Type: application/json
+
+
+
+… 
+Content-Type: application/json
+
+
+
+### PUT Request (full update)
+…
+Content-Type: application/json
+
+
+
+… 
+Content-Type: application/json
+
+
+
+### PUT Request (full update)
+PUT http://localhost:3000/api/items/123 HTTP/1.1
+Content-Type: application/json
+
+
+
+### PATCH Request 
+PATCH http://localhost:3000/api/items/123 HTTP/1.1
+Content-Type: application/json
+
+
+
+### DELETE Request
+DELETE http://localhost:3000/api/items/123 HTTP/1.1
+Content-Type: application/json
+
+### GET all photos
+GET http://localhost:3000/api/photos HTTP/1.1
+Content-Type: application/json
+
+### GET photo by ID
+GET http://localhost:3000/api/photos/1711195846479 HTTP/1.1
+Content-Type: application/json
+
+### POST new photo
+POST http://localhost:3000/api/photos HTTP/1.1
+Content-Type: multipart/form-data; boundary=----FormBoundary1234
+
+------FormBoundary1234
+Content-Disposition: form-data; name="file"; filename="input.jpg"
+Content-Type: image/jpeg
+
+< ./input.jpg
+------FormBoundary1234
+Content-Disposition: form-data; name="album"
+
+album1
+------FormBoundary1234--
+
+### UPDATE photo history
+PATCH http://localhost:3000/api/photos HTTP/1.1
+Content-Type: application/json
+
+{
+  "id": 1745564700085,
+  "status": "zmienione 1 raz"
+}
+
+### DELETE photo
+DELETE http://localhost:3000/api/photos/1711195846479 HTTP/1.1
+Content-Type: application/json
