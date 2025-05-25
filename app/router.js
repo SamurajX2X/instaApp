@@ -2,6 +2,7 @@ import url from 'url';
 import getRequestData from './getRequestData.js';
 import fileController from './controllers/fileController.js';
 import jsonController from './controllers/jsonController.js';
+import userRouter from './userRouter.js';
 import tracer from 'tracer';
 
 const logger = tracer.colorConsole({
@@ -110,6 +111,11 @@ const router = async (req, res) => {
         else {
             sendJsonResponse(res, 405, { error: 'Metoda niedozwolona' });
         }
+    }
+    else if (path.startsWith('/api/users')) {
+        await userRouter(req, res);
+    } else if (path.startsWith('/api/tags')) {
+        await tagsRouter(req, res);
     }
     else {
         sendJsonResponse(res, 404, { error: 'Endpoint nie znaleziony' });

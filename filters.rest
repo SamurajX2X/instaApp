@@ -1,0 +1,120 @@
+### Get image metadata
+GET http://localhost:3000/api/filters/metadata/1745564700080
+
+### Apply grayscale filter
+PATCH http://localhost:3000/api/filters
+Content-Type: application/json
+
+{   
+  "id": 1745564700080,
+  "lastChange": "grayscale"
+}
+
+### Apply rotate filter (90 degrees)
+PATCH http://localhost:3000/api/filters
+Content-Type: application/json
+
+{   
+  "id": 1745564700080,
+  "lastChange": "rotate",
+  "angle": 90
+}
+
+### Apply resize filter
+PATCH http://localhost:3000/api/filters
+Content-Type: application/json
+
+{   
+  "id": 1745564700080,
+  "lastChange": "resize",
+  "width": 300,
+  "height": 200
+}
+
+### Apply crop filter
+PATCH http://localhost:3000/api/filters
+Content-Type: application/json
+
+{   
+  "id": 1745564700080,
+  "lastChange": "crop",
+  "width": 200,
+  "height": 200,
+  "left": 20,
+  "top": 20
+}
+
+### Apply flip filter
+PATCH http://localhost:3000/api/filters
+Content-Type: application/json
+
+{   
+  "id": 1745564700080,
+  "lastChange": "flip"
+}
+
+### Apply flop filter
+PATCH http://localhost:3000/api/filters
+Content-Type: application/json
+
+{   
+  "id": 1745564700080,
+  "lastChange": "flop"
+}
+
+### Apply negate filter
+PATCH http://localhost:3000/api/filters
+Content-Type: application/json
+
+{   
+  "id": 1745564700080,
+  "lastChange": "negate"
+}
+
+### Apply tint filter (red)
+PATCH http://localhost:3000/api/filters
+Content-Type: application/json
+
+{   
+  "id": 1745564700080,
+  "lastChange": "tint",
+  "r": 255,
+  "g": 0,
+  "b": 0
+}
+
+### Apply tint filter (green)
+PATCH http://localhost:3000/api/filters
+Content-Type: application/json
+
+{   
+  "id": 1745564700080,
+  "lastChange": "tint",
+  "r": 0,
+  "g": 255,
+  "b": 0
+}
+
+### Apply tint filter (blue)
+PATCH http://localhost:3000/api/filters
+Content-Type: application/json
+
+{   
+  "id": 1745564700080,
+  "lastChange": "tint",
+  "r": 0,
+  "g": 0,
+  "b": 255
+}
+
+### Get original image
+GET http://localhost:3000/api/getimage/1745564700080
+
+### Get filtered image (grayscale)
+GET http://localhost:3000/api/getimage/1745564700080/filter/grayscale
+
+### Get filtered image (rotate)
+GET http://localhost:3000/api/getimage/1745564700080/filter/rotate
+
+### Get filtered image (tint)
+GET http://localhost:3000/api/getimage/1745564700080/filter/tint

@@ -1,0 +1,28 @@
+[
+  {
+    "id": "1747736497868",
+    "username": "testuser",
+    "email": "user@example.com",
+    "password": "$2b$10$0//r0IFu0E7zBkKmDzN0YOZI645j8jJdQfBdISNWETYA/ZuH9sgbW",
+    "createdAt": "2025-05-20T10:21:37.868Z",
+    "profilePicture": null
+  },
+  {
+    "id": "1747737881866",
+    "name": "John",
+    "lastname": "Doe",
+    "email": "aarawrawrawr@example.com",
+    "password": "$2b$10$3O9xxRTlzSnxHptfaXucvuw8nmWvXhTFEGgcqFKjMtyyz/EErMq1m",
+    "createdAt": "2025-05-20T10:44:41.866Z",
+    "profilePicture": null
+  },
+  {
+    "id": "1747737911106",
+    "name": "John",
+    "lastname": "Doe",
+    "email": "anotheremail@example.com",
+    "password": "$2b$10$OQqtzhbrvHRBs.0D1eFA0.NtpIAF7zUgffXXWGMVeq6p5NxDitkV6",
+    "createdAt": "2025-05-20T10:45:11.106Z",
+    "profilePicture": null
+  }
+]

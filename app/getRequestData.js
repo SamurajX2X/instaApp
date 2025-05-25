@@ -6,6 +6,11 @@ const getRequestData = async (req) => {
                 body += chunk.toString();
             });
             req.on("end", () => {
+                if (!body) {
+                    resolve({});
+                    return;
+                }
+
                 try {
                     const parsedBody = JSON.parse(body);
                     resolve(parsedBody);

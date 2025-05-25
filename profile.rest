@@ -1,0 +1,38 @@
+### Pobierz profil użytkownika
+GET http://localhost:3000/api/profile
+Authorization: Bearer {{authToken}}
+
+### Aktualizuj profil użytkownika
+PATCH http://localhost:3000/api/profile
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "firstName": "Jan",
+  "lastName": "Kowalski",
+  "bio": "Moje nowe bio",
+  "location": "Warszawa",
+  "websiteUrl": "https://example.com"
+}
+
+### Prześlij zdjęcie profilowe
+# Uwaga: Ten endpoint najlepiej testować przez aplikację frontendową lub narzędzie Postman,
+# ponieważ wymaga wysłania pliku jako multipart/form-data
+POST http://localhost:3000/api/profile
+Authorization: Bearer {{authToken}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="profile.jpg"
+Content-Type: image/jpeg
+
+< ./test-profile.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+### Wyloguj użytkownika (dodaj token do czarnej listy)
+GET http://localhost:3000/api/profile/logout
+Authorization: Bearer {{authToken}}
+
+### Pobierz zdjęcie profilowe
+# Zastąp `test@example.com` rzeczywistym adresem email i nazwą pliku
+GET http://localhost:3000/api/getimage/profile/test@example.com/profile-cropped.png

@@ -43,7 +43,7 @@ const router = async (req, res) => {
     }
 
     if (path.startsWith('/api/photos')) {
-        // GET /api/photos - get all photos
+        // GET /api/photos - pobierz wszystkie zdjęcia
         if (req.method === 'GET' && path === '/api/photos') {
             try {
                 const photos = await jsonController.getall();
@@ -53,7 +53,7 @@ const router = async (req, res) => {
                 sendJsonResponse(res, 500, { error: 'Blad serwera' });
             }
         }
-        // GET /api/photos/{id} - get one photo
+        // GET /api/photos/{id} - pobierz jedno zdjęcie
         else if (req.method === 'GET' && path.match(/^\/api\/photos\/\d+$/)) {
             try {
                 const id = extractIdFromPath(path);
@@ -69,7 +69,7 @@ const router = async (req, res) => {
                 sendJsonResponse(res, 500, { error: 'Blad serwera' });
             }
         }
-        // GET /api/photos/tags/{id} - get tags of a photo
+        // GET /api/photos/tags/{id} - pobierz tagi zdjęcia
         else if (req.method === 'GET' && path.match(/^\/api\/photos\/tags\/\d+$/)) {
             try {
                 const id = path.split('/').pop();
@@ -85,7 +85,7 @@ const router = async (req, res) => {
                 sendJsonResponse(res, 500, { error: 'Blad serwera' });
             }
         }
-        // POST /api/photos - create a new photo
+        // POST /api/photos - utwórz nowe zdjęcie
         else if (req.method === 'POST' && path === '/api/photos') {
             try {
                 const photoData = await fileController.saveImage(req);
@@ -96,7 +96,7 @@ const router = async (req, res) => {
                 sendJsonResponse(res, 400, { error: error.message || 'Bledne zapytanie' });
             }
         }
-        // DELETE /api/photos/{id} - delete a photo
+        // DELETE /api/photos/{id} - usuń zdjęcie
         else if (req.method === 'DELETE' && path.match(/^\/api\/photos\/\d+$/)) {
             try {
                 const id = extractIdFromPath(path);
@@ -113,7 +113,7 @@ const router = async (req, res) => {
                 sendJsonResponse(res, 500, { error: 'Blad serwera' });
             }
         }
-        // PATCH /api/photos - update photo status
+        // PATCH /api/photos - aktualizuj status zdjęcia
         else if (req.method === 'PATCH' && path === '/api/photos') {
             try {
                 const data = await getRequestData(req);
@@ -129,7 +129,7 @@ const router = async (req, res) => {
                 sendJsonResponse(res, 500, { error: 'Blad serwera' });
             }
         }
-        // PATCH /api/photos/tags - add a tag to a photo
+        // PATCH /api/photos/tags - dodaj tag do zdjęcia
         else if (req.method === 'PATCH' && path === '/api/photos/tags') {
             try {
                 const data = await getRequestData(req);
@@ -156,7 +156,7 @@ const router = async (req, res) => {
                 sendJsonResponse(res, 500, { error: 'Blad serwera' });
             }
         }
-        // PATCH /api/photos/tags/mass - add multiple tags to a photo
+        // PATCH /api/photos/tags/mass - dodaj wiele tagów do zdjęcia
         else if (req.method === 'PATCH' && path === '/api/photos/tags/mass') {
             try {
                 const data = await getRequestData(req);

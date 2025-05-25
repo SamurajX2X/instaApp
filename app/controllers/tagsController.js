@@ -15,15 +15,12 @@ const ensureDataDir = async () => {
     }
 };
 
-// Initialize tags with popularity if file doesn't exist
 const initializeTags = async () => {
     await ensureDataDir();
     try {
         await fs.access(TAGS_DATA_FILE);
-        // File exists, no need to initialize
     } catch (err) {
         if (err.code === 'ENOENT') {
-            // Create tags with random popularity
             const tags = popularTags.map((tag, index) => ({
                 id: index,
                 name: tag,
@@ -74,18 +71,15 @@ const writePhotosData = async (data) => {
 };
 
 const controller = {
-    // Get all tags in raw format (just tag names)
     getRawTags: async () => {
         const tags = await readTagsData();
         return tags.map(tag => tag.name);
     },
 
-    // Get all tags as objects
     getAllTags: async () => {
         return await readTagsData();
     },
 
-    // Get one tag by ID
     getOneTag: async (id) => {
         const tagId = typeof id === 'string' ? parseInt(id) : id;
         const tags = await readTagsData();
@@ -98,7 +92,6 @@ const controller = {
         return tag;
     },
 
-    // Add a new tag
     addTag: async (tagData) => {
         const { name, popularity } = tagData;
 
@@ -106,14 +99,12 @@ const controller = {
             return { error: "Name is required" };
         }
 
-        // Check if tag name starts with #
         if (!name.startsWith('#')) {
             return { error: "Tag name must start with #" };
         }
 
         const tags = await readTagsData();
 
-        // Check if tag already exists
         if (tags.some(t => t.name.toLowerCase() === name.toLowerCase())) {
             return { error: "Tag already exists" };
         }
@@ -129,7 +120,6 @@ const controller = {
         return newTag;
     },
 
-    // Add tag to a photo
     addTagToPhoto: async (photoId, tagName) => {
         const id = typeof photoId === 'string' ? parseInt(photoId) : photoId;
         const photos = await readPhotosData();
@@ -139,22 +129,18 @@ const controller = {
             return { error: `Photo with id ${photoId} not found` };
         }
 
-        // Check if tag name starts with #
         if (!tagName.startsWith('#')) {
             tagName = '#' + tagName;
         }
 
-        // Initialize tags array if it doesn't exist
         if (!photos[photoIndex].tags) {
             photos[photoIndex].tags = [];
         }
 
-        // Check if tag already exists on this photo
         if (photos[photoIndex].tags.some(t => t.name.toLowerCase() === tagName.toLowerCase())) {
             return { error: `Tag ${tagName} already exists on this photo` };
         }
 
-        // Add the tag to the photo
         photos[photoIndex].tags.push({
             name: tagName
         });
@@ -163,7 +149,6 @@ const controller = {
         return photos[photoIndex];
     },
 
-    // Add multiple tags to a photo
     addTagsToPhoto: async (photoId, tags) => {
         const id = typeof photoId === 'string' ? parseInt(photoId) : photoId;
         const photos = await readPhotosData();
@@ -173,16 +158,13 @@ const controller = {
             return { error: `Photo with id ${photoId} not found` };
         }
 
-        // Initialize tags array if it doesn't exist
         if (!photos[photoIndex].tags) {
             photos[photoIndex].tags = [];
         }
 
-        // Process each tag in the array
         const existingTagNames = photos[photoIndex].tags.map(t => t.name.toLowerCase());
         const newTags = tags
             .map(tag => {
-                // Ensure tag starts with #
                 let name = tag.name;
                 if (!name.startsWith('#')) {
                     name = '#' + name;
@@ -191,14 +173,12 @@ const controller = {
             })
             .filter(tag => !existingTagNames.includes(tag.name.toLowerCase()));
 
-        // Add new tags to the photo
         photos[photoIndex].tags = [...photos[photoIndex].tags, ...newTags];
 
         await writePhotosData(photos);
         return photos[photoIndex];
     },
 
-    // Get tags of a specific photo
     getPhotoTags: async (photoId) => {
         const id = typeof photoId === 'string' ? parseInt(photoId) : photoId;
         const photos = await readPhotosData();
@@ -215,7 +195,6 @@ const controller = {
     }
 };
 
-// Initialize tags on module load
 initializeTags().catch(console.error);
 
 export default controller;
