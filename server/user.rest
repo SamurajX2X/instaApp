@@ -7,10 +7,17 @@ Content-Type: application/json
 
 {
   "name": "John",
-  "lastname": "Doe",
-  "email": "anotheremail@example.com",
+  "lastname": "Doe", 
+  "email": "newuser@example.com",
   "password": "Password123"
 }
+
+### Potwierdzenie konta (użyj tokenu z odpowiedzi rejestracji)
+# GET http://localhost:3000/api/users/confirm/{{token_z_rejestracji}}
+
+### Get All Users (test endpoint)
+GET http://localhost:3000/api/users HTTP/1.1
+Authorization: Bearer {{auth_token}}
 
 ### User Login
 # @name login

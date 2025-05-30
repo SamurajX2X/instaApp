@@ -1,20 +1,22 @@
 {
-  "dependencies": {
-    "bcryptjs": "^3.0.2",
-    "crypto": "^1.0.1",
-    "dotenv": "^16.5.0",
-    "formidable": "^3.5.2",
-    "fs": "^0.0.1-security",
-    "jsonwebtoken": "^9.0.2",
-    "sharp": "^0.34.2",
-    "tracer": "^1.3.0"
-  },
-  "name": "instaapp",
+  "name": "instaapp-monorepo",
   "version": "1.0.0",
-  "description": "simple instagram like project ",
-  "main": "index.js",
+  "description": "Instagram-like app with Svelte and Node.js for school project",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "install:all": "npm install && npm install --prefix server && npm install --prefix client",
+    "build:client": "cd client && npm run build",
+    "start:server": "cd server && npm start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   },
   "repository": {
     "type": "git",
@@ -22,13 +24,15 @@
   },
   "keywords": [
     "instagram",
-    "instaApp"
+    "instaApp",
+    "monorepo",
+    "svelte",
+    "nodejs"
   ],
   "author": "Mateusz Samuraj",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/SamurajX2X/instaApp/issues"
   },
-  "homepage": "https://github.com/SamurajX2X/instaApp#readme",
-  "type": "module"
+  "homepage": "https://github.com/SamurajX2X/instaApp#readme"
 }

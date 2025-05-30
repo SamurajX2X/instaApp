@@ -1,10 +1,12 @@
 # InstaApp
 
-A Node.js REST API for managing photos, albums, and tags similar to Instagram.
+A full-stack Instagram-like application with Node.js backend and Svelte frontend.
 
 ## Project Overview
 
-InstaApp is a server application that provides REST API endpoints for:
+InstaApp is a monorepo containing:
+- **Server**: Node.js REST API for managing photos, albums, and tags
+- **Client**: Svelte frontend application with modern UI
 - Uploading and managing photos
 - Organizing photos into albums
 - Adding and managing tags for photos
@@ -27,24 +29,69 @@ InstaApp is a server application that provides REST API endpoints for:
 ## Project Structure
 
 ```
-├── index.js                 # Application entry point
-├── package.json             # Project dependencies
-├── tags.rest                # Tag API testing file
-├── test.rest                # Photo API testing file
-├── app/
-│   ├── getRequestData.js    # Helper for parsing request body
-│   ├── imageRouter.js       # Router for photo endpoints
-│   ├── model.js             # Data models
-│   ├── tagsRouter.js        # Router for tag endpoints
-│   ├── controllers/
-│   │   ├── fileController.js    # File operations controller
-│   │   ├── jsonController.js    # Data operations controller
-│   │   ├── tagsController.js    # Tag operations controller
-│   ├── data/                # JSON data storage
-│   │   ├── photos.json      # Photo metadata
-│   │   ├── tags.json        # Tag metadata
-│   ├── uploads/             # Photo upload directory
-│       ├── [album_name]/    # Album directories
+├── server/                  # Node.js backend
+│   ├── index.js             # Server entry point
+│   ├── package.json         # Server dependencies
+│   ├── app/                 # Application logic
+│   │   ├── controllers/     # Business logic controllers
+│   │   ├── data/           # JSON data storage
+│   │   └── uploads/        # Photo upload directory
+│   └── *.rest              # API testing files
+├── client/                  # Svelte frontend
+│   ├── src/                # Source code
+│   ├── static/             # Static assets
+│   └── package.json        # Client dependencies
+├── profile/                # User profiles (to be organized)
+└── package.json            # Monorepo configuration
+```
+
+## Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm
+
+### Installation
+
+1. Install all dependencies:
+```bash
+npm run install:all
+```
+`w`
+
+2. Set up environment variables:
+Create a `.env` file in the `server/` directory with:
+```
+APP_PORT=3001
+JWT_SECRET=your_jwt_secret_here
+```
+
+### Development
+
+Run both server and client in development mode:
+```bash
+npm run dev
+```
+
+Or run them separately:
+```bash
+# Server only
+npm run dev:server
+
+# Client only  
+npm run dev:client
+```
+
+### Production
+
+1. Build the client:
+```bash
+npm run build:client
+```
+
+2. Start the server:
+```bash
+npm run start:server
 ```
 
 ## API Endpoints

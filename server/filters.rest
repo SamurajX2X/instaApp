@@ -107,6 +107,79 @@ Content-Type: application/json
   "b": 255
 }
 
+### Apply reformat filter (to PNG)
+PATCH http://localhost:3000/api/filters
+Content-Type: application/json
+
+{   
+  "id": 1745564700080,
+  "lastChange": "reformat",
+  "format": "png"
+}
+
+### Apply reformat filter (to WEBP)
+PATCH http://localhost:3000/api/filters
+Content-Type: application/json
+
+{   
+  "id": 1745564700080,
+  "lastChange": "reformat",
+  "format": "webp"
+}
+
+### Apply blur filter
+PATCH http://localhost:3000/api/filters
+Content-Type: application/json
+
+{   
+  "id": 1745564700080,
+  "lastChange": "blur",
+  "sigma": 5
+}
+
+### Apply sharpen filter
+PATCH http://localhost:3000/api/filters
+Content-Type: application/json
+
+{   
+  "id": 1745564700080,
+  "lastChange": "sharpen",
+  "sigma": 2,
+  "flat": 1,
+  "jagged": 2
+}
+
+### Apply modulate filter (brightness, saturation, hue)
+PATCH http://localhost:3000/api/filters
+Content-Type: application/json
+
+{   
+  "id": 1745564700080,
+  "lastChange": "modulate",
+  "brightness": 1.2,
+  "saturation": 0.8,
+  "hue": 45
+}
+
+### Apply normalize filter
+PATCH http://localhost:3000/api/filters
+Content-Type: application/json
+
+{   
+  "id": 1745564700080,
+  "lastChange": "normalize"
+}
+
+### Apply gamma correction filter
+PATCH http://localhost:3000/api/filters
+Content-Type: application/json
+
+{   
+  "id": 1745564700080,
+  "lastChange": "gamma",
+  "gamma": 1.8
+}
+
 ### Get original image
 GET http://localhost:3000/api/getimage/1745564700080
 
@@ -118,3 +191,21 @@ GET http://localhost:3000/api/getimage/1745564700080/filter/rotate
 
 ### Get filtered image (tint)
 GET http://localhost:3000/api/getimage/1745564700080/filter/tint
+
+### Get filtered image (blur)
+GET http://localhost:3000/api/getimage/1745564700080/filter/blur
+
+### Get filtered image (sharpen)
+GET http://localhost:3000/api/getimage/1745564700080/filter/sharpen
+
+### Get filtered image (modulate)
+GET http://localhost:3000/api/getimage/1745564700080/filter/modulate
+
+### Get filtered image (normalize)
+GET http://localhost:3000/api/getimage/1745564700080/filter/normalize
+
+### Get filtered image (gamma)
+GET http://localhost:3000/api/getimage/1745564700080/filter/gamma
+
+### Get filtered image (reformat)
+GET http://localhost:3000/api/getimage/1745564700080/filter/reformat

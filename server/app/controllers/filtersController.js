@@ -99,11 +99,49 @@ const filtersController = {
                         g: filterOptions.g || 0,
                         b: filterOptions.b || 0
                     });
-                    break;
-                case 'reformat':
+                    break; case 'reformat':
                     const newExt = filterOptions.format || 'png';
                     const newFilteredPath = path.join(imageDir, `${baseName}-${lastChange}.${newExt}`);
                     imageProcessor = imageProcessor.toFormat(newExt);
+                    const relativeNewFilteredPath = path.relative(path.join(__dirname, '../..'), newFilteredPath).replace(/\\/g, '/');
+                    await imageProcessor.toFile(newFilteredPath);
+
+                    const reformatHistoryEntry = {
+                        status: lastChange,
+                        timestamp: Date.now(),
+                        url: relativeNewFilteredPath
+                    };
+
+                    const reformatUpdatedPhoto = {
+                        ...photo,
+                        lastChange,
+                        history: [...photo.history, reformatHistoryEntry]
+                    };
+
+                    await jsonController.update(reformatUpdatedPhoto);
+                    return reformatUpdatedPhoto;
+                case 'blur':
+                    imageProcessor = imageProcessor.blur(filterOptions.sigma || 3);
+                    break;
+                case 'sharpen':
+                    imageProcessor = imageProcessor.sharpen({
+                        sigma: filterOptions.sigma || 1,
+                        flat: filterOptions.flat || 1,
+                        jagged: filterOptions.jagged || 2
+                    });
+                    break;
+                case 'modulate':
+                    imageProcessor = imageProcessor.modulate({
+                        brightness: filterOptions.brightness || 1,
+                        saturation: filterOptions.saturation || 1,
+                        hue: filterOptions.hue || 0
+                    });
+                    break;
+                case 'normalize':
+                    imageProcessor = imageProcessor.normalize();
+                    break;
+                case 'gamma':
+                    imageProcessor = imageProcessor.gamma(filterOptions.gamma || 2.2);
                     break;
                 default:
                     return { error: "Unknown filter type" };

@@ -64,14 +64,23 @@ const userRouter = async (req, res) => {
             const newUser = await userController.registerUser(userData);
             sendJsonResponse(res, 201, newUser);
             return;
-        }
-
-        if (path === '/api/users/login' && req.method === 'POST') {
+        } if (path === '/api/users/login' && req.method === 'POST') {
             const loginData = await getRequestData(req);
             const result = await userController.loginUser(loginData);
             sendJsonResponse(res, 200, result);
             return;
-        }        // Chronione ścieżki (wymagane uwierzytelnianie)
+        }
+
+        // Potwierdzenie konta przez token
+        const confirmMatch = path.match(/^\/api\/users\/confirm\/([A-Za-z0-9\-_]+\.[A-Za-z0-9\-_]+\.[A-Za-z0-9\-_]+)$/);
+        if (confirmMatch && req.method === 'GET') {
+            const token = confirmMatch[1];
+            const result = await userController.confirmUser(token);
+            sendJsonResponse(res, 200, result);
+            return;
+        }
+
+        // Chronione ścieżki (wymagane uwierzytelnianie)
         try {
             // Weryfikacja tokenu dla chronionych ścieżek
             const decoded = await authenticate(req);

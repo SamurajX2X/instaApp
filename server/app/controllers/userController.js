@@ -77,9 +77,7 @@ const userController = {
                 throw new Error('Email already exists');
             }
 
-            const hashedPassword = await bcrypt.hash(password, 10);
-
-            const newUser = {
+            const hashedPassword = await bcrypt.hash(password, 10); const newUser = {
                 id: Date.now().toString(),
                 name,
                 lastname,
@@ -87,14 +85,22 @@ const userController = {
                 password: hashedPassword,
                 createdAt: new Date().toISOString(),
                 profilePicture: null,
-                verified: false
-            };
-
-            users.push(newUser);
+                confirmed: false
+            }; users.push(newUser);
             await writeUsers(users);
 
+            // Tworzymy token potwierdzający
+            const confirmToken = jsonwebtoken.sign(
+                { userId: newUser.id, email: newUser.email },
+                process.env.SECRET_KEY,
+                { expiresIn: '1h' }
+            );
+
             const { password: _, ...userResponse } = newUser;
-            return userResponse;
+            return {
+                user: userResponse,
+                message: `Skopiuj poniższy link do przeglądarki\nhttp://localhost:3000/api/users/confirm/${confirmToken}\nw celu potwierdzenia konta\nUwaga: link jest ważny przez godzinę`
+            };
         } catch (error) {
             logger.error('Error registering user:', error);
             throw error;
@@ -110,10 +116,12 @@ const userController = {
             }
 
             const users = await readUsers();
-            const user = users.find(user => user.email === email);
-
-            if (!user) {
+            const user = users.find(user => user.email === email); if (!user) {
                 throw new Error('Invalid credentials');
+            }
+
+            if (!user.confirmed) {
+                throw new Error('Account not confirmed. Please check your email for confirmation link.');
             }
 
             const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -135,6 +143,35 @@ const userController = {
             };
         } catch (error) {
             logger.error('Error logging in user:', error);
+            throw error;
+        }
+    },
+
+    confirmUser: async (token) => {
+        try {
+            const decoded = jsonwebtoken.verify(token, process.env.SECRET_KEY);
+            const users = await readUsers();
+            const userIndex = users.findIndex(user => user.id === decoded.userId);
+
+            if (userIndex === -1) {
+                throw new Error('User not found');
+            }
+
+            if (users[userIndex].confirmed) {
+                return { message: 'Account already confirmed' };
+            }
+
+            users[userIndex].confirmed = true;
+            await writeUsers(users);
+
+            return { message: 'Account confirmed successfully' };
+        } catch (error) {
+            if (error.name === 'TokenExpiredError') {
+                throw new Error('Confirmation link has expired');
+            } else if (error.name === 'JsonWebTokenError') {
+                throw new Error('Invalid confirmation token');
+            }
+            logger.error('Error confirming user:', error);
             throw error;
         }
     },

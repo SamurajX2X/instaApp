@@ -1,6 +1,6 @@
 import url from 'url';
-import getRequestData from '../getRequestData.js';
-import filtersController from '../controllers/filtersController.js';
+import getRequestData from './getRequestData.js';
+import filtersController from './controllers/filtersController.js';
 import tracer from 'tracer';
 
 const logger = tracer.colorConsole({

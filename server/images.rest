@@ -1,0 +1,59 @@
+### POST Image with Album
+POST http://localhost:3000/api/photos HTTP/1.1
+Content-Type: multipart/form-data; boundary=----FormBoundary1234
+
+------FormBoundary1234
+Content-Disposition: form-data; name="file"; filename="test-profile.jpg"
+Content-Type: image/jpeg
+
+< ./test-profile.jpg
+
+------FormBoundary1234
+Content-Disposition: form-data; name="album"
+Content-Type: text/plain
+
+user_album
+------FormBoundary1234--
+
+### GET All Photos
+GET http://localhost:3000/api/photos HTTP/1.1
+Content-Type: application/json
+
+### GET Single Photo (update ID from previous POST response)
+GET http://localhost:3000/api/photos/1745564700080 HTTP/1.1
+Content-Type: application/json
+
+### PATCH Photo Status Update
+PATCH http://localhost:3000/api/photos HTTP/1.1
+Content-Type: application/json
+
+{
+  "id": 1745564700080,
+  "status": "zmienione 1 raz"
+}
+
+### PATCH Photo Status Update Again
+PATCH http://localhost:3000/api/photos HTTP/1.1
+Content-Type: application/json
+
+{
+  "id": 1745564700080,
+  "status": "zmienione 2 raz"
+}
+
+### PATCH Photo Status Update Third Time
+PATCH http://localhost:3000/api/photos HTTP/1.1
+Content-Type: application/json
+
+{
+  "id": 1745564700080,
+  "status": "zmienione 3 raz"
+}
+
+### DELETE Photo
+DELETE http://localhost:3000/api/photos/1745564700080 HTTP/1.1
+Content-Type: application/json
+
+### DELETE Non-existent Photo (should return not found)
+DELETE http://localhost:3000/api/photos/1745564700080x HTTP/1.1
+Content-Type: application/json
