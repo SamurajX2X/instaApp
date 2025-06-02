@@ -31,7 +31,7 @@
 			</div>
 
 			<nav class="flex items-center space-x-6">
-				<a href="/" class="transition-transform hover:scale-110" title="Home">
+				<a href="/" class="transition-transform hover:scale-110" title="Home" aria-label="Home">
 					<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path
 							stroke-linecap="round"
@@ -42,7 +42,7 @@
 					</svg>
 				</a>
 
-				<button class="transition-transform hover:scale-110" title="Messages">
+				<button class="transition-transform hover:scale-110" title="Messages" aria-label="Messages">
 					<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path
 							stroke-linecap="round"
@@ -55,6 +55,7 @@
 				<button
 					class="transition-transform hover:scale-110"
 					title="Create"
+					aria-label="Create"
 					onclick={() => (showUploadModal = true)}
 				>
 					<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -62,8 +63,7 @@
 						></path>
 					</svg>
 				</button>
-
-				<button class="transition-transform hover:scale-110" title="Explore">
+				<button class="transition-transform hover:scale-110" title="Expl	ore" aria-label="Explore">
 					<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path
 							stroke-linecap="round"
@@ -79,6 +79,7 @@
 						class="relative transition-transform hover:scale-110"
 						onclick={() => (showNotifications = !showNotifications)}
 						title="Activity"
+						aria-label="Activity"
 					>
 						<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path

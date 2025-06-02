@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { apiService } from '$lib/api';
-	import { addPost } from '$lib/app';
+	import { apiService } from '$lib/services/api';
+	import { addPost } from '$lib/stores/app';
 
 	const dispatch = createEventDispatcher();
 
-	let { showModal = false }: { showModal: boolean } = $props();
+	let { showModal = $bindable() }: { showModal: boolean } = $props();
 	let files: FileList | null = null;
 	let caption = $state('');
 	let album = $state('');
