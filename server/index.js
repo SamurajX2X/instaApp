@@ -10,6 +10,18 @@ import 'dotenv/config.js'
 const PORT = process.env.APP_PORT;
 
 createServer(async (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Request-Method', '*');
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PATCH, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', '*, Authorization');
+
+    if (req.method === 'OPTIONS') {
+        res.writeHead(200);
+        res.end();
+        return;
+    }
+
     try {
         if (req.url.startsWith('/api/photos')) {
             await imageRouter(req, res);

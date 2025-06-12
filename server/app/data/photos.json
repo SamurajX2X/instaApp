@@ -1,46 +1,28 @@
 [
   {
-    "id": 1745564700085,
-    "album": "album1",
-    "originalName": "input.jpg",
-    "url": "uploads\\\\album1\\\\upload_1745564700080.jpg",
-    "lastChange": "zmienione 1 raz",
+    "id": 1749762147228,
+    "album": "ALBUM",
+    "originalName": "ToyotaYaris.jpg",
+    "url": "uploads\\\\ALBUM\\\\upload_1749762147219.jpg",
+    "lastChange": "original",
     "history": [
       {
         "status": "original",
-        "lastModifiedDate": 1745564700085
-      },
-      {
-        "status": "zmienione 1 raz",
-        "lastModifiedDate": 1745564911869
+        "lastModifiedDate": 1749762147228
       }
     ],
     "tags": []
   },
   {
-    "id": 1745564941898,
-    "album": "album1",
-    "originalName": "input.jpg",
-    "url": "uploads\\\\album1\\\\upload_1745564941897.jpg",
+    "id": 1749763880845,
+    "album": "m",
+    "originalName": "OpelVectra.jpg",
+    "url": "uploads\\\\m\\\\upload_1749763880841.jpg",
     "lastChange": "original",
     "history": [
       {
         "status": "original",
-        "lastModifiedDate": 1745564941898
-      }
-    ],
-    "tags": []
-  },
-  {
-    "id": 1745564943337,
-    "album": "album1",
-    "originalName": "input.jpg",
-    "url": "uploads\\\\album1\\\\upload_1745564943336.jpg",
-    "lastChange": "original",
-    "history": [
-      {
-        "status": "original",
-        "lastModifiedDate": 1745564943337
+        "lastModifiedDate": 1749763880845
       }
     ],
     "tags": []

@@ -35,7 +35,7 @@ const router = async (req, res) => {
         return;
     }
 
-    // GET /api/tags/raw - pobierz wszystkie surowe tagi
+
     if (req.method === 'GET' && path === '/api/tags/raw') {
         try {
             const tags = await tagsController.getRawTags();
@@ -46,7 +46,6 @@ const router = async (req, res) => {
         }
     }
 
-    // GET /api/tags - pobierz wszystkie tagi jako obiekty
     else if (req.method === 'GET' && path === '/api/tags') {
         try {
             const tags = await tagsController.getAllTags();
@@ -57,7 +56,6 @@ const router = async (req, res) => {
         }
     }
 
-    // GET /api/tags/{id} - pobierz jeden tag po ID
     else if (req.method === 'GET' && path.match(/^\/api\/tags\/\d+$/)) {
         try {
             const id = path.split('/').pop();
@@ -74,7 +72,6 @@ const router = async (req, res) => {
         }
     }
 
-    // POST /api/tags - utwórz nowy tag
     else if (req.method === 'POST' && path === '/api/tags') {
         try {
             const data = await getRequestData(req);
@@ -91,7 +88,6 @@ const router = async (req, res) => {
         }
     }
 
-    // Jeśli żadna trasa nie pasuje
     else {
         sendJsonResponse(res, 404, { error: 'Endpoint nie znaleziony' });
     }

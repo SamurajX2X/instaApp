@@ -1,7 +1,7 @@
 {
   "name": "instaapp-monorepo",
   "version": "1.0.0",
-  "description": "Instagram-like app with Svelte and Node.js for school project",
+  "description": "Instagram-like app with Vue.js and Node.js for school project",
   "private": true,
   "workspaces": [
     "server",
@@ -26,7 +26,7 @@
     "instagram",
     "instaApp",
     "monorepo",
-    "svelte",
+    "vue",
     "nodejs"
   ],
   "author": "Mateusz Samuraj",

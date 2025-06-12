@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @import './base.css';
 
 * {
@@ -59,15 +55,26 @@ a,
   }
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+/* Removing Tailwind-specific @layer components and custom classes that rely on @apply */
+/* You will need to replace these with standard CSS if they were used in your components */
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-}
+/* Example: If .instagram-button was used, you'll need to define its styles here or in the component */
+/* .instagram-button {
+  color: white;
+  font-weight: 500; 
+  padding: 0.75rem 1.5rem; 
+  border-radius: 0.5rem; 
+  transition: all 0.3s ease-in-out;
+  background: linear-gradient(45deg, #833AB4, #E1306C, #F56040, #FCCC63); 
+} */
+
+/* .instagram-button:hover {
+  box-shadow: 0 4px 15px rgba(225, 48, 108, 0.35);
+  transform: translateY(-2px);
+} */
+
+/* .instagram-button:disabled {
+  transform: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+} */

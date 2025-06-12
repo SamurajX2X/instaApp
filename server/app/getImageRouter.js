@@ -101,10 +101,7 @@ const getImageRouter = async (req, res) => {
                 res.end(JSON.stringify({ error: 'Endpoint not found' }));
             }
         }
-        else {
-            res.writeHead(405, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ error: 'Method not allowed' }));
-        }
+
     } catch (error) {
         logger.error(error);
         res.writeHead(500, { 'Content-Type': 'application/json' });

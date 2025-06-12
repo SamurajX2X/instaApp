@@ -49,7 +49,7 @@ const userRouter = async (req, res) => {
     logger.info(`Received ${req.method} request for ${path}`);
 
     try {
-        // Preflight żądania CORS
+        // CORS
         if (req.method === 'OPTIONS') {
             res.writeHead(200, {
                 'Access-Control-Allow-Origin': '*',
@@ -58,7 +58,7 @@ const userRouter = async (req, res) => {
             });
             res.end();
             return;
-        }        // Publiczne ścieżki (bez wymaganego uwierzytelniania)
+        }
         if (path === '/api/users/register' && req.method === 'POST') {
             const userData = await getRequestData(req);
             const newUser = await userController.registerUser(userData);
@@ -71,7 +71,7 @@ const userRouter = async (req, res) => {
             return;
         }
 
-        // Potwierdzenie konta przez token
+        // sprawdzanie tokenu regexem
         const confirmMatch = path.match(/^\/api\/users\/confirm\/([A-Za-z0-9\-_]+\.[A-Za-z0-9\-_]+\.[A-Za-z0-9\-_]+)$/);
         if (confirmMatch && req.method === 'GET') {
             const token = confirmMatch[1];
@@ -80,24 +80,21 @@ const userRouter = async (req, res) => {
             return;
         }
 
-        // Chronione ścieżki (wymagane uwierzytelnianie)
+
         try {
-            // Weryfikacja tokenu dla chronionych ścieżek
+            // Weryfikacja tokenu 
             const decoded = await authenticate(req);
             req.user = decoded;
 
-            // Pobierz wszystkich użytkowników - ścieżka administratora
             if (path === '/api/users' && req.method === 'GET') {
                 const users = await userController.getAllUsers();
                 sendJsonResponse(res, 200, users);
                 return;
             }
 
-            // Pobierz użytkownika po ID
             if (path.match(/^\/api\/users\/[^/]+$/) && req.method === 'GET') {
                 const id = extractIdFromPath(path);
 
-                // Pozwól użytkownikom dostęp tylko do własnego profilu
                 if (id !== req.user.userId) {
                     sendJsonResponse(res, 403, { error: 'Forbidden: You can only access your own profile' });
                     return;
@@ -108,11 +105,9 @@ const userRouter = async (req, res) => {
                 return;
             }
 
-            // Aktualizuj użytkownika
             if (path.match(/^\/api\/users\/[^/]+$/) && req.method === 'PUT') {
                 const id = extractIdFromPath(path);
 
-                // Pozwól użytkownikom aktualizować tylko własny profil
                 if (id !== req.user.userId) {
                     sendJsonResponse(res, 403, { error: 'Forbidden: You can only update your own profile' });
                     return;
@@ -123,13 +118,12 @@ const userRouter = async (req, res) => {
                 return;
             }
 
-            // Zmień hasło
+            // zmiana hasla
             if (path.match(/^\/api\/users\/[^/]+\/password$/) && req.method === 'PUT') {
                 const id = path.split('/')[3];
 
-                // Pozwól użytkownikom zmieniać tylko własne hasło
                 if (id !== req.user.userId) {
-                    sendJsonResponse(res, 403, { error: 'Forbidden: You can only change your own password' });
+                    sendJsonResponse(res, 403, { error: ' You can only change your own password' });
                     return;
                 }
                 const passwordData = await getRequestData(req);
@@ -138,13 +132,11 @@ const userRouter = async (req, res) => {
                 return;
             }
 
-            // Usuń użytkownika
             if (path.match(/^\/api\/users\/[^/]+$/) && req.method === 'DELETE') {
                 const id = extractIdFromPath(path);
 
-                // Pozwól użytkownikom usuwać tylko własne konto
                 if (id !== req.user.userId) {
-                    sendJsonResponse(res, 403, { error: 'Forbidden: You can only delete your own account' });
+                    sendJsonResponse(res, 403, { error: ' You can only delete your own account' });
                     return;
                 }
 
@@ -153,7 +145,6 @@ const userRouter = async (req, res) => {
                 return;
             }
 
-            // Ścieżka nie znaleziona
             sendJsonResponse(res, 404, { error: 'Endpoint not found' });
 
         } catch (authError) {

@@ -1,7 +1,7 @@
-### Get image metadata
+### Get i
 GET http://localhost:3000/api/filters/metadata/1745564700080
 
-### Apply grayscale filter
+###  grayscale 
 PATCH http://localhost:3000/api/filters
 Content-Type: application/json
 
@@ -10,7 +10,7 @@ Content-Type: application/json
   "lastChange": "grayscale"
 }
 
-### Apply rotate filter (90 degrees)
+###  rotate 
 PATCH http://localhost:3000/api/filters
 Content-Type: application/json
 
@@ -20,7 +20,16 @@ Content-Type: application/json
   "angle": 90
 }
 
-### Apply resize filter
+###  resize
+PATCH http://localhost:3000/api/filters
+Content-Type: application/json
+
+{   
+  "id": 1745564700080,
+  "lastChange": "resize",
+  "width": 300,
+  "height": 200
+}
 PATCH http://localhost:3000/api/filters
 Content-Type: application/json
 
@@ -31,7 +40,7 @@ Content-Type: application/json
   "height": 200
 }
 
-### Apply crop filter
+###  crop 
 PATCH http://localhost:3000/api/filters
 Content-Type: application/json
 
@@ -44,7 +53,7 @@ Content-Type: application/json
   "top": 20
 }
 
-### Apply flip filter
+###  flip 
 PATCH http://localhost:3000/api/filters
 Content-Type: application/json
 
@@ -53,7 +62,7 @@ Content-Type: application/json
   "lastChange": "flip"
 }
 
-### Apply flop filter
+###  flop 
 PATCH http://localhost:3000/api/filters
 Content-Type: application/json
 
@@ -62,7 +71,7 @@ Content-Type: application/json
   "lastChange": "flop"
 }
 
-### Apply negate filter
+###  negate 
 PATCH http://localhost:3000/api/filters
 Content-Type: application/json
 
@@ -71,7 +80,7 @@ Content-Type: application/json
   "lastChange": "negate"
 }
 
-### Apply tint filter (red)
+###  tint 
 PATCH http://localhost:3000/api/filters
 Content-Type: application/json
 
@@ -83,7 +92,7 @@ Content-Type: application/json
   "b": 0
 }
 
-### Apply tint filter (green)
+### tint green 
 PATCH http://localhost:3000/api/filters
 Content-Type: application/json
 
@@ -95,7 +104,7 @@ Content-Type: application/json
   "b": 0
 }
 
-### Apply tint filter (blue)
+### tint blue
 PATCH http://localhost:3000/api/filters
 Content-Type: application/json
 
@@ -107,7 +116,7 @@ Content-Type: application/json
   "b": 255
 }
 
-### Apply reformat filter (to PNG)
+### reformt
 PATCH http://localhost:3000/api/filters
 Content-Type: application/json
 
@@ -117,7 +126,7 @@ Content-Type: application/json
   "format": "png"
 }
 
-### Apply reformat filter (to WEBP)
+### Awebp
 PATCH http://localhost:3000/api/filters
 Content-Type: application/json
 

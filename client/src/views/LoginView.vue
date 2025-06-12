@@ -1,86 +1,199 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-main via-white to-gray-50 px-4 py-8">
-    <div class="max-w-md w-full bg-white rounded-lg shadow-card p-8">      <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold bg-gradient-to-r from-instagram-purple via-instagram-pink to-instagram-orange bg-clip-text text-transparent mb-2">Sign in to InstaApp</h1>
-        <p class="text-gray-600">
-          Don't have an account?
-          <router-link to="/register" class="text-primary hover:text-primary-600 font-medium">Create one here</router-link>
-        </p>
+  <div class="login-container">
+    <div class="login-form">
+      <h1>Login</h1>
+      
+      <div v-if="errorMessage" class="error-message">
+        {{ errorMessage }}
       </div>
       
-      <form class="space-y-6" @submit.prevent="handleLogin">
-        <div>
-          <label for="email" class="block text-sm font-medium text-dark mb-2">Email</label>          <input
-            id="email"
-            v-model="form.email"
-            name="email"
-            type="email"
-            required
-            class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-instagram-pink focus:ring-2 focus:ring-instagram-pink/10 transition-all duration-200 hover:border-gray-300"
+      <form @submit.prevent="handleLogin">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            v-model="email" 
+            required 
             placeholder="Enter your email"
           />
         </div>
         
-        <div>
-          <label for="password" class="block text-sm font-medium text-dark mb-2">Password</label>          <input
-            id="password"
-            v-model="form.password"
-            name="password"
-            type="password"
-            required
-            class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-instagram-pink focus:ring-2 focus:ring-instagram-pink/10 transition-all duration-200 hover:border-gray-300"
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            v-model="password" 
+            required 
             placeholder="Enter your password"
           />
         </div>
-
-        <div v-if="error" class="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg">
-          {{ error }}
-        </div>        <button
-          type="submit"
-          :disabled="loading"
-          class="w-full bg-gradient-to-r from-instagram-purple via-instagram-pink to-instagram-orange disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium py-3 px-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-instagram-pink/25 hover:-translate-y-0.5 disabled:transform-none disabled:opacity-50 flex items-center justify-center"
-        >
-          <AppLoader v-if="loading" size="small" />
-          <span v-else>Sign In</span>
+        
+        <button type="submit" class="login-button">
+          <template v-if="!loading">Login</template>
+          <template v-if="loading">
+            Logging in...
+            <span class="loader"></span>
+          </template>
         </button>
+        
+        <div class="register-link">
+          Don't have an account? <router-link to="/register">Register here</router-link>
+        </div>
       </form>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
+<script>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
-import AppLoader from '../components/AppLoader.vue'
 
-const router = useRouter()
-const authStore = useAuthStore()
-
-const form = ref({
-  email: '',
-  password: ''
-})
-
-const loading = ref(false)
-const error = ref('')
-
-const handleLogin = async () => {
-  loading.value = true
-  error.value = ''
-
-  try {
-    const result = await authStore.login(form.value.email, form.value.password)
+export default {
+  name: 'LoginView',
+  setup() {
+    const router = useRouter()
+    const authStore = useAuthStore()
     
-    if (result.success) {
-      router.push('/')
-    } else {
-      error.value = result.error || 'Login failed'
+    const email = ref('')
+    const password = ref('')
+    const loading = ref(false)
+    const errorMessage = ref('')
+    
+    const handleLogin = async () => {
+      loading.value = true
+      errorMessage.value = ''
+      
+      try {
+        const result = await authStore.login(email.value, password.value)
+        
+        if (result.success) {
+          router.push('/')
+        } else {
+          errorMessage.value = result.error || 'Login failed. Please try again.'
+        }
+      } catch (error) {
+        errorMessage.value = 'An unexpected error occurred. Please try again.'
+        console.error('Login error:', error)
+      } finally {
+        loading.value = false
+      }
     }
-  } catch (err) {
-    error.value = 'Network error. Please try again.'
-  } finally {
-    loading.value = false
+    
+    return {
+      email,
+      password,
+      loading,
+      errorMessage,
+      handleLogin
+    }
   }
 }
 </script>
+
+<style scoped>
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #fafafa;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 400px;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #262626;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #262626;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #0095f6;
+}
+
+.login-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #0095f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.login-button:hover {
+  background-color: #0086e0;
+}
+
+.register-link {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.register-link a {
+  color: #0095f6;
+  text-decoration: none;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #d32f2f;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.loader {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-left: 8px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style>
